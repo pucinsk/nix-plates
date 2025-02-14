@@ -1,15 +1,38 @@
 {
-  description = "A very basic flake";
+  description = "Ruby on Rails development environment";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
   };
 
-  outputs = { self, nixpkgs }: {
+  outputs = { self, nixpkgs, ... }:
+    let
+      pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+    in
+    {
+      devShells.aarch64-darwin.default = pkgs.mkShell {
+        env = {
+          BUNDLE_PATH = "./vendor/gems";
+          GEM_HOME = "./vendor/gems";
+          GEM_PATH = "./vendor/gems";
+        };
 
-    packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
 
-    packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
+        packages = with pkgs; [
+          git
+          gnumake
+          gmp
+          rustc
+          libyaml
+          libz
+          openssl_3
+          ruby_3_4
+        ];
 
-  };
+        shellHook = ''
+          mkdir -p ./vendor/gems
+          echo "We are ready to Rail away!"
+        '';
+      };
+    };
 }

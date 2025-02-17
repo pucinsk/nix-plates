@@ -30,14 +30,9 @@
         ];
 
         shellHook = ''
-          bundle config set force_ruby_platform true
-
           export PATH=$BUNDLE_PATH/bin:$PATH
-          which bundler
-          bundler -v
-
-          mkdir -p ./vendor/gems
-          echo "We are ready to Rail away!"
+          bundle config set force_ruby_platform true
+          mkdir -p $BUNDLE_PATH
         '';
       };
     };

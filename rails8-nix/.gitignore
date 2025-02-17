@@ -1,8 +1,0 @@
-.direnv
-
-/vendor/*
-!/vendor/.keep
-
-/vendor/gems/*
-!/vendor/gems/
-!/vendor/gems/.keep

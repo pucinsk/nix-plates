@@ -30,6 +30,7 @@
         ];
 
         shellHook = ''
+          export PATH=$BUNDLE_PATH/bin:$PATH
           mkdir -p ./vendor/gems
           echo "We are ready to Rail away!"
         '';
